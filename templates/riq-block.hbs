@@ -1,0 +1,361 @@
+<div class="p-non-exfoliate-outer-padding">
+{{#if details.requestedIP}}
+<a href="https://community.riskiq.com/search/{{details.requestedIP}}">  (View in RiskIQ) </a>
+
+  {{#if details.asn}}
+      <h1 class="p-title">
+          {{fa-icon "map-marker-alt" fixedWidth=true}}  ASN Information
+      </h1>
+  {{/if}}
+  {{#if details.asn.asnID}}
+      <div>
+          <span class="p-key">ASN ID: </span>
+          <span class="p-value">{{details.asn.asnID}}</span>
+      </div>
+  {{/if}}
+  {{#if details.asn.name}}
+      <div>
+          <span class="p-key">ASN Name: </span>
+          <span class="p-value">{{details.asn.name}}</span>
+      </div>
+  {{/if}}
+  {{#if details.asn.organization}}
+      <div>
+          <span class="p-key">ASN Organization: </span>
+          <span class="p-value">{{details.asn.organization}}</span>
+      </div>
+  {{/if}}
+  {{#if details.ipWhois}}
+    <h1 class="p-title">
+        {{fa-icon "globe" fixedWidth=true}} WhoIs Information
+    </h1>
+  {{/if}}
+  {{#if details.ipWhois.createdAt}}
+      <div>
+          <span class="p-key">Created At: </span>
+          <span class="p-value">{{details.ipWhois.createdAt}}</span>
+      </div>
+  {{/if}}
+  {{#if details.ipWhois.updatedAt}}
+      <div>
+          <span class="p-key">Updated At: </span>
+          <span class="p-value">{{details.ipWhois.updatedAt}}</span>
+      </div>
+  {{/if}}
+  {{#if details.ipWhois.status}}
+      <div>
+          <span class="p-key">Status: </span>
+          <span class="p-value">{{details.ipWhois.status}}</span>
+      </div>
+  {{/if}}
+  {{#if details.ipWhois.whoisServer}}
+      <div>
+          <span class="p-key">Whois Server: </span>
+          <span class="p-value">{{details.ipWhois.whoisServer}}</span>
+      </div>
+  {{/if}}
+  {{#if details.ipWhois.registrarName}}
+      <div>
+          <span class="p-key">Registrar Name: </span>
+          <span class="p-value">{{details.ipWhois.registrarName}}</span>
+      </div>
+  {{/if}}
+  {{#if details.ipWhois.registrarEmail}}
+      <div>
+          <span class="p-key">Registrar Email: </span>
+          <span class="p-value">{{details.ipWhois.registrarEmail}}</span>
+      </div>
+  {{/if}}
+  {{#if details.blacklistResource}}
+    <h1 class="p-title">
+        {{fa-icon "bug" fixedWidth=true}} Blacklist Information
+    </h1>
+  {{/if}}
+  {{#each details.blacklistResource.entries as |hit|}}
+    {{#if hit.type}}
+    <div>
+        <span class="p-key">Blacklist Type: </span>
+        <span class="p-value">{{hit.type}}</span>
+    </div>
+    {{/if}}
+    {{#if hit.matchType}}
+    <div>
+        <span class="p-key">Match Type: </span>
+        <span class="p-value">{{hit.matchType}}</span>
+    </div>
+    {{/if}}
+    {{#if hit.url}}
+    <div>
+        <span class="p-key">URL: </span>
+        <span class="p-value">{{hit.url}}</span>
+    </div>
+    {{/if}}
+    {{#if hit.description}}
+    <div>
+        <span class="p-key">Description: </span>
+        <span class="p-value">{{hit.description}}</span>
+    </div>
+    {{/if}}
+    {{#if hit.detectedAt}}
+    <div>
+        <span class="p-key">Detected At: </span>
+        <span class="p-value">{{hit.detectedAt}}</span>
+    </div>
+    {{/if}}
+    {{#if hit.source}}
+    <div>
+        <span class="p-key">Source: </span>
+        <span class="p-value">{{hit.source}}</span>
+    </div>
+    {{/if}}
+  {{/each}}
+  {{#if details.reputationMatches}}
+    <h1 class="p-title">
+        {{fa-icon "bug" fixedWidth=true}} Reputation Matches
+    </h1>
+  {{/if}}
+  {{#each details.reputationMatches as |hit|}}
+    {{#if hit.listName}}
+    <div>
+        <span class="p-key">List Name: </span>
+        <span class="p-value">{{hit.listName}}</span>
+    </div>
+    {{/if}}
+    {{#if hit.threatType}}
+    <div>
+        <span class="p-key">Threat Type: </span>
+        <span class="p-value">{{hit.threatType}}</span>
+    </div>
+    {{/if}}
+    {{#if hit.trusted}}
+    <div>
+        <span class="p-key">Trusted: </span>
+        <span class="p-value">{{hit.trusted}}</span>
+    </div>
+    {{/if}}
+    {{#if hit.firstSeen}}
+    <div>
+        <span class="p-key">First Seen: </span>
+        <span class="p-value">{{hit.firstSeen}}</span>
+    </div>
+    {{/if}}
+    {{#if hit.lastSeen}}
+    <div>
+        <span class="p-key">Last Seen: </span>
+        <span class="p-value">{{hit.lastSeen}}</span>
+    </div>
+    {{/if}}
+  {{/each}}
+  {{#if details.openPorts}}
+    <h1 class="p-title">
+        {{fa-icon "door-open" fixedWidth=true}} Open Port Information
+    </h1>
+  {{/if}}
+  {{#each details.openPorts as |hit|}}
+    {{#if hit.count}}
+    <div>
+        <span class="p-key">Count: </span>
+        <span class="p-value">{{hit.count}}</span>
+    </div>
+    {{/if}}
+    {{#if hit.firstSeen}}
+    <div>
+        <span class="p-key">First Seen: </span>
+        <span class="p-value">{{hit.firstSeen}}</span>
+    </div>
+    {{/if}}
+    {{#if hit.lastSeen}}
+    <div>
+        <span class="p-key">Last Seen: </span>
+        <span class="p-value">{{hit.lastSeen}}</span>
+    </div>
+    {{/if}}
+    {{#if hit.portNumber}}
+    <div>
+        <span class="p-key">Port Number: </span>
+        <span class="p-value">{{hit.portNumber}}</span>
+    </div>
+    {{/if}}
+  {{/each}}
+{{/if}}
+
+{{#if details.requestedHost}}
+<a href="https://community.riskiq.com/search/{{details.requestedHost}}">  (View in RiskIQ) </a>
+
+{{#if details.ip.asn}}
+    <h1 class="p-title">
+        {{fa-icon "map-marker-alt" fixedWidth=true}}  ASN Information
+    </h1>
+{{/if}}
+{{#if details.ip.asn.asnID}}
+    <div>
+        <span class="p-key">ASN ID: </span>
+        <span class="p-value">{{details.ip.asn.asnID}}</span>
+    </div>
+{{/if}}
+{{#if details.ip.asn.name}}
+    <div>
+        <span class="p-key">ASN Name: </span>
+        <span class="p-value">{{details.ip.asn.name}}</span>
+    </div>
+{{/if}}
+{{#if details.ip.asn.organization}}
+    <div>
+        <span class="p-key">ASN Organization: </span>
+        <span class="p-value">{{details.ip.asn.organization}}</span>
+    </div>
+{{/if}}
+{{#if details.ip.ipWhois}}
+  <h1 class="p-title">
+      {{fa-icon "globe" fixedWidth=true}} WhoIs Information
+  </h1>
+{{/if}}
+{{#if details.ip.ipWhois.createdAt}}
+    <div>
+        <span class="p-key">Created At: </span>
+        <span class="p-value">{{details.ip.ipWhois.createdAt}}</span>
+    </div>
+{{/if}}
+{{#if details.ip.ipWhois.updatedAt}}
+    <div>
+        <span class="p-key">Updated At: </span>
+        <span class="p-value">{{details.ip.ipWhois.updatedAt}}</span>
+    </div>
+{{/if}}
+{{#if details.ip.ipWhois.status}}
+    <div>
+        <span class="p-key">Status: </span>
+        <span class="p-value">{{details.ip.ipWhois.status}}</span>
+    </div>
+{{/if}}
+{{#if details.ip.ipWhois.whoisServer}}
+    <div>
+        <span class="p-key">Whois Server: </span>
+        <span class="p-value">{{details.ip.ipWhois.whoisServer}}</span>
+    </div>
+{{/if}}
+{{#if details.ip.ipWhois.registrarName}}
+    <div>
+        <span class="p-key">Registrar Name: </span>
+        <span class="p-value">{{details.ip.ipWhois.registrarName}}</span>
+    </div>
+{{/if}}
+{{#if details.ip.ipWhois.registrarEmail}}
+    <div>
+        <span class="p-key">Registrar Email: </span>
+        <span class="p-value">{{details.ip.ipWhois.registrarEmail}}</span>
+    </div>
+{{/if}}
+{{#if details.ip.blacklistResource}}
+  <h1 class="p-title">
+      {{fa-icon "bug" fixedWidth=true}} Blacklist Information
+  </h1>
+{{/if}}
+{{#each details.ip.blacklistResource.entries as |hit|}}
+  {{#if hit.type}}
+  <div>
+      <span class="p-key">Blacklist Type: </span>
+      <span class="p-value">{{hit.type}}</span>
+  </div>
+  {{/if}}
+  {{#if hit.matchType}}
+  <div>
+      <span class="p-key">Match Type: </span>
+      <span class="p-value">{{hit.matchType}}</span>
+  </div>
+  {{/if}}
+  {{#if hit.url}}
+  <div>
+      <span class="p-key">URL: </span>
+      <span class="p-value">{{hit.url}}</span>
+  </div>
+  {{/if}}
+  {{#if hit.description}}
+  <div>
+      <span class="p-key">Description: </span>
+      <span class="p-value">{{hit.description}}</span>
+  </div>
+  {{/if}}
+  {{#if hit.detectedAt}}
+  <div>
+      <span class="p-key">Detected At: </span>
+      <span class="p-value">{{hit.detectedAt}}</span>
+  </div>
+  {{/if}}
+  {{#if hit.source}}
+  <div>
+      <span class="p-key">Source: </span>
+      <span class="p-value">{{hit.source}}</span>
+  </div>
+  {{/if}}
+{{/each}}
+{{#if details.ip.reputationMatches}}
+  <h1 class="p-title">
+      {{fa-icon "bug" fixedWidth=true}} Reputation Matches
+  </h1>
+{{/if}}
+{{#each details.ip.reputationMatches as |hit|}}
+  {{#if hit.listName}}
+  <div>
+      <span class="p-key">List Name: </span>
+      <span class="p-value">{{hit.listName}}</span>
+  </div>
+  {{/if}}
+  {{#if hit.threatType}}
+  <div>
+      <span class="p-key">Threat Type: </span>
+      <span class="p-value">{{hit.threatType}}</span>
+  </div>
+  {{/if}}
+  {{#if hit.trusted}}
+  <div>
+      <span class="p-key">Trusted: </span>
+      <span class="p-value">{{hit.trusted}}</span>
+  </div>
+  {{/if}}
+  {{#if hit.firstSeen}}
+  <div>
+      <span class="p-key">First Seen: </span>
+      <span class="p-value">{{hit.firstSeen}}</span>
+  </div>
+  {{/if}}
+  {{#if hit.lastSeen}}
+  <div>
+      <span class="p-key">Last Seen: </span>
+      <span class="p-value">{{hit.lastSeen}}</span>
+  </div>
+  {{/if}}
+{{/each}}
+{{#if details.ip.openPorts}}
+  <h1 class="p-title">
+      {{fa-icon "door-open" fixedWidth=true}} Open Port Information
+  </h1>
+{{/if}}
+{{#each details.ip.openPorts as |hit|}}
+  {{#if hit.count}}
+  <div>
+      <span class="p-key">Count: </span>
+      <span class="p-value">{{hit.count}}</span>
+  </div>
+  {{/if}}
+  {{#if hit.firstSeen}}
+  <div>
+      <span class="p-key">First Seen: </span>
+      <span class="p-value">{{hit.firstSeen}}</span>
+  </div>
+  {{/if}}
+  {{#if hit.lastSeen}}
+  <div>
+      <span class="p-key">Last Seen: </span>
+      <span class="p-value">{{hit.lastSeen}}</span>
+  </div>
+  {{/if}}
+  {{#if hit.portNumber}}
+  <div>
+      <span class="p-key">Port Number: </span>
+      <span class="p-value">{{hit.portNumber}}</span>
+  </div>
+  {{/if}}
+{{/each}}
+{{/if}}
+</div>

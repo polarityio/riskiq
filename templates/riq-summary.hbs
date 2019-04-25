@@ -1,0 +1,52 @@
+
+{{#if details.asn}}
+<span class="integration-summary-tag integration-background-color integration-border-color">
+   <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
+   <span class="integration-text-color">{{details.asn.name}}</span>
+</span>
+
+<span class="integration-summary-tag integration-background-color integration-border-color">
+   <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
+   <span class="integration-text-color">ASN: {{details.asn.asnID}}</span>
+</span>
+
+{{#if details.reputationMatches}}
+  <span class="integration-summary-tag integration-background-color integration-border-color">
+    <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
+    <span class="integration-text-color">REP Count: {{details.reputationMatches.length}}</span>
+  </span>
+{{/if}}
+
+{{#if details.blacklistResource}}
+  <span class="integration-summary-tag integration-background-color integration-border-color">
+    <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
+    <span class="integration-text-color">Blacklist Score: {{details.blacklistResource.score}}</span>
+  </span>
+{{/if}}
+{{/if}}
+
+{{#if details.ip}}
+<span class="integration-summary-tag integration-background-color integration-border-color">
+   <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
+   <span class="integration-text-color">{{details.ip.asn.name}}</span>
+</span>
+
+<span class="integration-summary-tag integration-background-color integration-border-color">
+   <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
+   <span class="integration-text-color">ASN {{details.ip.asn.asnID}}</span>
+</span>
+
+{{#if details.ip.reputationMatches}}
+  <span class="integration-summary-tag integration-background-color integration-border-color">
+    <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
+    <span class="integration-text-color">REP Count: {{details.ip.reputationMatches.length}}</span>
+  </span>
+{{/if}}
+
+{{#if details.ip.blacklistResource}}
+  <span class="integration-summary-tag integration-background-color integration-border-color">
+    <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
+    <span class="integration-text-color">Blacklist Score: {{details.ip.blacklistResource.score}}</span>
+  </span>
+{{/if}}
+{{/if}}
