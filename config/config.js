@@ -110,7 +110,7 @@ module.exports = {
       name: 'Private Key',
       description: 'RiskIQ Security Intelligence Services Private Key',
       default: '',
-      type: 'text',
+      type: 'password',
       userCanEdit: true,
       adminOnly: false
     },
