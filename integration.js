@@ -1,61 +1,50 @@
-"use strict";
+'use strict';
 
-let request = require("request");
-let _ = require("lodash");
-let util = require("util");
-let net = require("net");
-let config = require("./config/config");
-let async = require("async");
-let fs = require("fs");
+const request = require('request');
+const _ = require('lodash');
+const config = require('./config/config');
+const async = require('async');
+const fs = require('fs');
+
 let Logger;
-
 let requestWithDefaults;
 let previousDomainRegexAsString = '';
 let previousIpRegexAsString = '';
 let domainBlacklistRegex = null;
 let ipBlacklistRegex = null;
+
 const MAX_DOMAIN_LABEL_LENGTH = 63;
 const MAX_ENTITY_LENGTH = 100;
-
 const MAX_PARALLEL_LOOKUPS = 10;
 const IGNORED_IPS = new Set(['127.0.0.1', '255.255.255.255', '0.0.0.0']);
+
 /**
  *
  * @param entities
  * @param options
  * @param cb
  */
-
 function startup(logger) {
   Logger = logger;
   let defaults = {};
 
-  if (
-    typeof config.request.cert === "string" &&
-    config.request.cert.length > 0
-  ) {
+  if (typeof config.request.cert === 'string' && config.request.cert.length > 0) {
     defaults.cert = fs.readFileSync(config.request.cert);
   }
 
-  if (typeof config.request.key === "string" && config.request.key.length > 0) {
+  if (typeof config.request.key === 'string' && config.request.key.length > 0) {
     defaults.key = fs.readFileSync(config.request.key);
   }
 
-  if (
-    typeof config.request.passphrase === "string" &&
-    config.request.passphrase.length > 0
-  ) {
+  if (typeof config.request.passphrase === 'string' && config.request.passphrase.length > 0) {
     defaults.passphrase = config.request.passphrase;
   }
 
-  if (typeof config.request.ca === "string" && config.request.ca.length > 0) {
+  if (typeof config.request.ca === 'string' && config.request.ca.length > 0) {
     defaults.ca = fs.readFileSync(config.request.ca);
   }
 
-  if (
-    typeof config.request.proxy === "string" &&
-    config.request.proxy.length > 0
-  ) {
+  if (typeof config.request.proxy === 'string' && config.request.proxy.length > 0) {
     defaults.proxy = config.request.proxy;
   }
 
@@ -63,28 +52,19 @@ function startup(logger) {
 }
 
 function _setupRegexBlacklists(options) {
-  if (
-    options.domainBlacklistRegex !== previousDomainRegexAsString &&
-    options.domainBlacklistRegex.length === 0
-  ) {
+  if (options.domainBlacklistRegex !== previousDomainRegexAsString && options.domainBlacklistRegex.length === 0) {
     Logger.debug('Removing Domain Blacklist Regex Filtering');
     previousDomainRegexAsString = '';
     domainBlacklistRegex = null;
   } else {
     if (options.domainBlacklistRegex !== previousDomainRegexAsString) {
       previousDomainRegexAsString = options.domainBlacklistRegex;
-      Logger.debug(
-        { domainBlacklistRegex: previousDomainRegexAsString },
-        'Modifying Domain Blacklist Regex'
-      );
+      Logger.debug({ domainBlacklistRegex: previousDomainRegexAsString }, 'Modifying Domain Blacklist Regex');
       domainBlacklistRegex = new RegExp(options.domainBlacklistRegex, 'i');
     }
   }
 
-  if (
-    options.ipBlacklistRegex !== previousIpRegexAsString &&
-    options.ipBlacklistRegex.length === 0
-  ) {
+  if (options.ipBlacklistRegex !== previousIpRegexAsString && options.ipBlacklistRegex.length === 0) {
     Logger.debug('Removing IP Blacklist Regex Filtering');
     previousIpRegexAsString = '';
     ipBlacklistRegex = null;
@@ -101,17 +81,15 @@ function doLookup(entities, options, cb) {
   let lookupResults = [];
   let tasks = [];
 
-   _setupRegexBlacklists(options);
+  _setupRegexBlacklists(options);
 
   Logger.debug(entities);
 
-  entities.forEach(entity => {
-    if (_isInvalidEntity(entity) || _isEntityBlacklisted(entity, options)) {
-        next(null);
-      } else if (entity.value){
+  entities.forEach((entity) => {
+    if (!_isInvalidEntity(entity) && !_isEntityBlacklisted(entity, options)) {
       //do the lookup
       let requestOptions = {
-        method: "GET",
+        method: 'GET',
         auth: {
           user: options.apiKey,
           pass: options.privateKey
@@ -119,33 +97,40 @@ function doLookup(entities, options, cb) {
         json: true
       };
 
-      if (entity.isIPv4 && !IGNORED_IPS.has(entity.value)) {
-        requestOptions.uri =
-          options.host +
-          "/v0/enrich/ip/" +
-          entity.value +
-          "?whois=true&hostDetails=true&linkedAssetCounts=true&openPorts=true&certificates=true";
+      if (entity.isIPv4) {
+        requestOptions.uri = `${options.host}/v0/enrich/ip/${entity.value}`;
+        requestOptions.qs = {
+          whois: true,
+          hostDetails: true,
+          linkedAssetCounts: true,
+          openPorts: true,
+          certificates: true
+        };
       } else if (entity.isURL || entity.isDomain) {
-        requestOptions.uri =
-          options.host +
-          "/v0/enrich/host/" +
-          entity.value +
-          "?whois=true&hostDetails=true&ipDetails=true&linkedAssetCounts=true&recentPDNS=true&subDomainPDNS=true&openPorts=true&certificates=true";
+        requestOptions.uri = `${options.host}/v0/enrich/host/${entity.value}`;
+        requestOptions.qs = {
+          whois: true,
+          hostDetails: true,
+          ipDetails: true,
+          linkedAssetCounts: true,
+          recentPDNS: true,
+          subDomainPDNS: true,
+          openPorts: true,
+          certificates: true
+        };
       } else {
-        Logger.error({ entity: entity }, DATA_TYPE_ERROR);
-        throw new Error(DATA_TYPE_ERROR);
+        return;
       }
 
-      Logger.trace({ uri: options }, "Request URI");
+      Logger.trace({ uri: requestOptions.uri }, 'Request URI');
 
       tasks.push(function(done) {
         requestWithDefaults(requestOptions, function(error, res, body) {
-          Logger.trace({ body: body, statusCode: res.statusCode }, "Result of Lookup");
-
           if (error) {
-            done(error);
-            return;
+            return done(error);
           }
+
+          //Logger.trace({ body: body, statusCode: res ? res.statusCode : 'N/A' }, 'Result of Lookup');
 
           let result = {};
 
@@ -168,6 +153,7 @@ function doLookup(entities, options, cb) {
               body: null
             };
           }
+
           if (body.error) {
             // entity not found
             result = {
@@ -175,6 +161,7 @@ function doLookup(entities, options, cb) {
               body: null
             };
           }
+
           done(null, result);
         });
       });
@@ -183,11 +170,12 @@ function doLookup(entities, options, cb) {
 
   async.parallelLimit(tasks, MAX_PARALLEL_LOOKUPS, (err, results) => {
     if (err) {
+      Logger.error({ err: err }, 'Error');
       cb(err);
       return;
     }
 
-    results.forEach(result => {
+    results.forEach((result) => {
       if (result.body === null || _isMiss(result.body)) {
         lookupResults.push({
           entity: result.entity,
@@ -204,6 +192,7 @@ function doLookup(entities, options, cb) {
       }
     });
 
+    Logger.debug({ lookupResults }, 'Results');
     cb(null, lookupResults);
   });
 }
@@ -223,6 +212,10 @@ function _isInvalidEntity(entity) {
     if (typeof invalidLabel !== 'undefined') {
       return true;
     }
+  }
+
+  if (entity.isIPv4 && IGNORED_IPS.has(entity.value)) {
+    return true;
   }
 
   return false;
@@ -259,44 +252,41 @@ function _isEntityBlacklisted(entity, options) {
 }
 
 function _isMiss(body) {
-  if (
-    body &&
-    Array.isArray(body.whois) &&
-    body.whois.length === 0 ||
-    Array.isArray(body.recentPDNS) &&
-    body.recentPDNS.length === 0 ||
-    Array.isArray(body.subDomainPDNS) &&
-    body.subDomainPDNS.length === 0 ||
-    Array.isArray(body.linkedAssetCounts) &&
-    body.linkedAssetCounts.length === 0 ||
-    Array.isArray(body.certificates) &&
-    body.certificates.length === 0
-  ) {
+  if (!body) {
     return true;
   }
-  return false;
+
+  if (
+    (Array.isArray(body.whois) && body.whois.length > 0) ||
+    (Array.isArray(body.recentPDNS) && body.recentPDNS.length > 0) ||
+    (Array.isArray(body.subDomainPDNS) && body.subDomainPDNS.length > 0) ||
+    (Array.isArray(body.linkedAssetCounts) && body.linkedAssetCounts.length > 0) ||
+    (Array.isArray(body.certificates) && body.certificates.length > 0)
+  ) {
+    return false;
+  }
+
+  return true;
 }
 
 function validateOptions(userOptions, cb) {
   let errors = [];
   if (
-    typeof userOptions.apiKey.value !== "string" ||
-    (typeof userOptions.apiKey.value === "string" &&
-      userOptions.apiKey.value.length === 0)
+    typeof userOptions.apiKey.value !== 'string' ||
+    (typeof userOptions.apiKey.value === 'string' && userOptions.apiKey.value.length === 0)
   ) {
     errors.push({
-      key: "apiKey",
-      message: "You must provide a RiskIQ API key"
+      key: 'apiKey',
+      message: 'You must provide a RiskIQ API key'
     });
   }
   if (
-    typeof userOptions.privateKey.value !== "string" ||
-    (typeof userOptions.privateKey.value === "string" &&
-      userOptions.privateKey.value.length === 0)
+    typeof userOptions.privateKey.value !== 'string' ||
+    (typeof userOptions.privateKey.value === 'string' && userOptions.privateKey.value.length === 0)
   ) {
     errors.push({
-      key: "privateKey",
-      message: "You must provide a RiskIQ Private key"
+      key: 'privateKey',
+      message: 'You must provide a RiskIQ Private key'
     });
   }
   cb(null, errors);
