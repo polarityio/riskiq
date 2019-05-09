@@ -1,6 +1,6 @@
 # Polarity RiskIQ SIS Integration
 
-[mode:on demand only](https://img.shields.io/badge/mode-on%20demand%20only-blue.svg)
+![mode:on demand only](https://img.shields.io/badge/mode-on%20demand%20only-blue.svg)
 
 > Due to the time it can take for lookups against certain indicators, we recommend that this integration be run in "On Demand Only" mode.
 
