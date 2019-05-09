@@ -71,7 +71,7 @@
     </h1>
   {{/if}}
   {{#each details.blacklistResource.entries as |hit|}}
-      <div class="mb-2">
+      <div class="mb-1">
         {{#if hit.type}}
         <div>
             <span class="p-key">Blacklist Type: </span>
@@ -116,7 +116,7 @@
     </h1>
   {{/if}}
   {{#each details.reputationMatches as |hit|}}
-      <div class="mb-2">
+      <div class="mb-1">
         {{#if hit.listName}}
         <div>
             <span class="p-key">List Name: </span>
@@ -155,7 +155,7 @@
     </h1>
   {{/if}}
   {{#each details.openPorts as |hit|}}
-      <div class="mb-2">
+      <div class="mb-1">
         {{#if hit.count}}
         <div>
             <span class="p-key">Count: </span>
@@ -257,7 +257,7 @@
   </h1>
 {{/if}}
 {{#each details.ip.blacklistResource.entries as |hit|}}
-    <div class="mb-2">
+    <div class="mb-1">
       {{#if hit.type}}
       <div>
           <span class="p-key">Blacklist Type: </span>
@@ -303,7 +303,7 @@
   </h1>
 {{/if}}
 {{#each details.ip.reputationMatches as |hit|}}
-    <div class="mb-2">
+    <div class="mb-1">
         {{#if hit.listName}}
             <div>
                 <span class="p-key">List Name: </span>
@@ -342,7 +342,7 @@
   </h1>
 {{/if}}
 {{#each details.ip.openPorts as |hit|}}
-    <div class="mb-2">
+    <div class="mb-1">
         {{#if hit.count}}
             <div>
                 <span class="p-key">Count: </span>
