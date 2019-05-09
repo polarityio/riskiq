@@ -1,15 +1,15 @@
 # Polarity RiskIQ SIS Integration
 
+> Due to the time it can take for lookups against certain indicators, we recommend that this integration be run in "On Demand Only" mode.
+
 As attacks against the organization increase, it’s more important than ever to have a security program built on robust and reliable data to enrich analysis and inform the decision-making process. RiskIQ offers the ability to ingest critical security data programmatically at scale.
 
 The Polarity RiskIQ integration allows Polarity to search RiskIQ Security Intelligence Services (SIS API) to return threat information on IP's, Domains and URL's.
 
-More information on RiskIQ SIS:
-https://www.riskiq.com/products/security-intelligence-services/
+More information on RiskIQ SIS please see https://www.riskiq.com/products/security-intelligence-services
 
-https://api.riskiq.net/api/concepts.html
+For information about the RiskIQ API please see https://api.riskiq.net/api/concepts.html
 
-Polarity - RiskIQ integration in action:
 ![riskiq](https://user-images.githubusercontent.com/22529325/55735171-d4df4000-59ee-11e9-93ff-43fe541c593f.gif)
 
 ## RiskIQ Integration Options
