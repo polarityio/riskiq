@@ -1,7 +1,6 @@
 <div class="p-non-exfoliate-outer-padding">
 {{#if details.requestedIP}}
 <a href="https://community.riskiq.com/search/{{details.requestedIP}}">  (View in RiskIQ) </a>
-
   {{#if details.asn}}
       <h1 class="p-title">
           {{fa-icon "map-marker-alt" fixedWidth=true}}  ASN Information
@@ -33,13 +32,13 @@
   {{#if details.ipWhois.createdAt}}
       <div>
           <span class="p-key">Created At: </span>
-          <span class="p-value">{{details.ipWhois.createdAt}}</span>
+          <span class="p-value">{{moment-format details.ipWhois.createdAt "YYYY-MM-DD HH:mm:ss z" timeZone=timezone}}</span>
       </div>
   {{/if}}
   {{#if details.ipWhois.updatedAt}}
       <div>
           <span class="p-key">Updated At: </span>
-          <span class="p-value">{{details.ipWhois.updatedAt}}</span>
+          <span class="p-value">{{moment-format details.ipWhois.updatedAt "YYYY-MM-DD HH:mm:ss z" timeZone=timezone}}</span>
       </div>
   {{/if}}
   {{#if details.ipWhois.status}}
@@ -68,83 +67,87 @@
   {{/if}}
   {{#if details.blacklistResource}}
     <h1 class="p-title">
-        {{fa-icon "bug" fixedWidth=true}} Blacklist Information
+        {{fa-icon "list" fixedWidth=true}} Blacklist Information
     </h1>
   {{/if}}
   {{#each details.blacklistResource.entries as |hit|}}
-    {{#if hit.type}}
-    <div>
-        <span class="p-key">Blacklist Type: </span>
-        <span class="p-value">{{hit.type}}</span>
-    </div>
-    {{/if}}
-    {{#if hit.matchType}}
-    <div>
-        <span class="p-key">Match Type: </span>
-        <span class="p-value">{{hit.matchType}}</span>
-    </div>
-    {{/if}}
-    {{#if hit.url}}
-    <div>
-        <span class="p-key">URL: </span>
-        <span class="p-value">{{hit.url}}</span>
-    </div>
-    {{/if}}
-    {{#if hit.description}}
-    <div>
-        <span class="p-key">Description: </span>
-        <span class="p-value">{{hit.description}}</span>
-    </div>
-    {{/if}}
-    {{#if hit.detectedAt}}
-    <div>
-        <span class="p-key">Detected At: </span>
-        <span class="p-value">{{hit.detectedAt}}</span>
-    </div>
-    {{/if}}
-    {{#if hit.source}}
-    <div>
-        <span class="p-key">Source: </span>
-        <span class="p-value">{{hit.source}}</span>
-    </div>
-    {{/if}}
+      <div class="mb-2">
+        {{#if hit.type}}
+        <div>
+            <span class="p-key">Blacklist Type: </span>
+            <span class="p-value">{{hit.type}}</span>
+        </div>
+        {{/if}}
+        {{#if hit.matchType}}
+        <div>
+            <span class="p-key">Match Type: </span>
+            <span class="p-value">{{hit.matchType}}</span>
+        </div>
+        {{/if}}
+        {{#if hit.url}}
+        <div>
+            <span class="p-key">URL: </span>
+            <span class="p-value">{{hit.url}}</span>
+        </div>
+        {{/if}}
+        {{#if hit.description}}
+        <div>
+            <span class="p-key">Description: </span>
+            <span class="p-value">{{hit.description}}</span>
+        </div>
+        {{/if}}
+        {{#if hit.detectedAt}}
+        <div>
+            <span class="p-key">Detected At: </span>
+            <span class="p-value">{{moment-format hit.detectedAt "YYYY-MM-DD HH:mm:ss z" timeZone=timezone}}</span>
+        </div>
+        {{/if}}
+        {{#if hit.source}}
+        <div>
+            <span class="p-key">Source: </span>
+            <span class="p-value">{{hit.source}}</span>
+        </div>
+        {{/if}}
+      </div>
   {{/each}}
   {{#if details.reputationMatches}}
     <h1 class="p-title">
-        {{fa-icon "bug" fixedWidth=true}} Reputation Matches
+        {{fa-icon "certificate" fixedWidth=true}} Reputation Matches
     </h1>
   {{/if}}
   {{#each details.reputationMatches as |hit|}}
-    {{#if hit.listName}}
-    <div>
-        <span class="p-key">List Name: </span>
-        <span class="p-value">{{hit.listName}}</span>
-    </div>
-    {{/if}}
-    {{#if hit.threatType}}
-    <div>
-        <span class="p-key">Threat Type: </span>
-        <span class="p-value">{{hit.threatType}}</span>
-    </div>
-    {{/if}}
-    {{#if hit.trusted}}
-    <div>
-        <span class="p-key">Trusted: </span>
-        <span class="p-value">{{hit.trusted}}</span>
-    </div>
-    {{/if}}
-    {{#if hit.firstSeen}}
-    <div>
-        <span class="p-key">First Seen: </span>
-        <span class="p-value">{{hit.firstSeen}}</span>
-    </div>
-    {{/if}}
-    {{#if hit.lastSeen}}
-    <div>
-        <span class="p-key">Last Seen: </span>
-        <span class="p-value">{{hit.lastSeen}}</span>
-    </div>
-    {{/if}}
+      <div class="mb-2">
+        {{#if hit.listName}}
+        <div>
+            <span class="p-key">List Name: </span>
+            <span class="p-value">{{hit.listName}}</span>
+        </div>
+        {{/if}}
+        {{#if hit.threatType}}
+        <div>
+            <span class="p-key">Threat Type: </span>
+            <span class="p-value">{{hit.threatType}}</span>
+        </div>
+        {{/if}}
+        {{#if hit.trusted}}
+        <div>
+            <span class="p-key">Trusted: </span>
+            <span class="p-value">{{hit.trusted}}</span>
+        </div>
+        {{/if}}
+        {{#if hit.firstSeen}}
+        <div>
+            <span class="p-key">First Seen: </span>
+            <span class="p-value">{{moment-format hit.firstSeen "YYYY-MM-DD HH:mm:ss z" timeZone=timezone}}</span>
+        </div>
+        {{/if}}
+        {{#if hit.lastSeen}}
+        <div>
+            <span class="p-key">Last Seen: </span>
+            <span class="p-value">{{moment-format hit.lastSeen "YYYY-MM-DD HH:mm:ss z" timeZone=timezone}}</span>
+        </div>
+        {{/if}}
+      </div>
   {{/each}}
   {{#if details.openPorts}}
     <h1 class="p-title">
@@ -152,30 +155,32 @@
     </h1>
   {{/if}}
   {{#each details.openPorts as |hit|}}
-    {{#if hit.count}}
-    <div>
-        <span class="p-key">Count: </span>
-        <span class="p-value">{{hit.count}}</span>
-    </div>
-    {{/if}}
-    {{#if hit.firstSeen}}
-    <div>
-        <span class="p-key">First Seen: </span>
-        <span class="p-value">{{hit.firstSeen}}</span>
-    </div>
-    {{/if}}
-    {{#if hit.lastSeen}}
-    <div>
-        <span class="p-key">Last Seen: </span>
-        <span class="p-value">{{hit.lastSeen}}</span>
-    </div>
-    {{/if}}
-    {{#if hit.portNumber}}
-    <div>
-        <span class="p-key">Port Number: </span>
-        <span class="p-value">{{hit.portNumber}}</span>
-    </div>
-    {{/if}}
+      <div class="mb-2">
+        {{#if hit.count}}
+        <div>
+            <span class="p-key">Count: </span>
+            <span class="p-value">{{hit.count}}</span>
+        </div>
+        {{/if}}
+        {{#if hit.firstSeen}}
+        <div>
+            <span class="p-key">First Seen: </span>
+            <span class="p-value">{{moment-format hit.firstSeen "YYYY-MM-DD HH:mm:ss z" timeZone=timezone}}</span>
+        </div>
+        {{/if}}
+        {{#if hit.lastSeen}}
+        <div>
+            <span class="p-key">Last Seen: </span>
+            <span class="p-value">{{moment-format hit.lastSeen "YYYY-MM-DD HH:mm:ss z" timeZone=timezone}}</span>
+        </div>
+        {{/if}}
+        {{#if hit.portNumber}}
+        <div>
+            <span class="p-key">Port Number: </span>
+            <span class="p-value">{{hit.portNumber}}</span>
+        </div>
+        {{/if}}
+      </div>
   {{/each}}
 {{/if}}
 
@@ -207,19 +212,19 @@
 {{/if}}
 {{#if details.ip.ipWhois}}
   <h1 class="p-title">
-      {{fa-icon "globe" fixedWidth=true}} WhoIs Information
+      {{fa-icon "globe" fixedWidth=true}} Whois Information
   </h1>
 {{/if}}
 {{#if details.ip.ipWhois.createdAt}}
     <div>
         <span class="p-key">Created At: </span>
-        <span class="p-value">{{details.ip.ipWhois.createdAt}}</span>
+        <span class="p-value">{{moment-format details.ip.ipWhois.createdAt "YYYY-MM-DD HH:mm:ss z" timeZone=timezone}}</span>
     </div>
 {{/if}}
 {{#if details.ip.ipWhois.updatedAt}}
     <div>
         <span class="p-key">Updated At: </span>
-        <span class="p-value">{{details.ip.ipWhois.updatedAt}}</span>
+        <span class="p-value">{{moment-format details.ip.ipWhois.updatedAt "YYYY-MM-DD HH:mm:ss z" timeZone=timezone}}</span>
     </div>
 {{/if}}
 {{#if details.ip.ipWhois.status}}
@@ -248,83 +253,88 @@
 {{/if}}
 {{#if details.ip.blacklistResource}}
   <h1 class="p-title">
-      {{fa-icon "bug" fixedWidth=true}} Blacklist Information
+      {{fa-icon "list" fixedWidth=true}} Blacklist Information
   </h1>
 {{/if}}
 {{#each details.ip.blacklistResource.entries as |hit|}}
-  {{#if hit.type}}
-  <div>
-      <span class="p-key">Blacklist Type: </span>
-      <span class="p-value">{{hit.type}}</span>
-  </div>
-  {{/if}}
-  {{#if hit.matchType}}
-  <div>
-      <span class="p-key">Match Type: </span>
-      <span class="p-value">{{hit.matchType}}</span>
-  </div>
-  {{/if}}
-  {{#if hit.url}}
-  <div>
-      <span class="p-key">URL: </span>
-      <span class="p-value">{{hit.url}}</span>
-  </div>
-  {{/if}}
-  {{#if hit.description}}
-  <div>
-      <span class="p-key">Description: </span>
-      <span class="p-value">{{hit.description}}</span>
-  </div>
-  {{/if}}
-  {{#if hit.detectedAt}}
-  <div>
-      <span class="p-key">Detected At: </span>
-      <span class="p-value">{{hit.detectedAt}}</span>
-  </div>
-  {{/if}}
-  {{#if hit.source}}
-  <div>
-      <span class="p-key">Source: </span>
-      <span class="p-value">{{hit.source}}</span>
-  </div>
-  {{/if}}
+    <div class="mb-2">
+      {{#if hit.type}}
+      <div>
+          <span class="p-key">Blacklist Type: </span>
+          <span class="p-value">{{hit.type}}</span>
+      </div>
+      {{/if}}
+      {{#if hit.matchType}}
+      <div>
+          <span class="p-key">Match Type: </span>
+          <span class="p-value">{{hit.matchType}}</span>
+      </div>
+      {{/if}}
+      {{#if hit.url}}
+      <div>
+          <span class="p-key">URL: </span>
+          <span class="p-value">{{hit.url}}</span>
+      </div>
+      {{/if}}
+      {{#if hit.description}}
+      <div>
+          <span class="p-key">Description: </span>
+          <span class="p-value">{{hit.description}}</span>
+      </div>
+      {{/if}}
+      {{#if hit.detectedAt}}
+      <div>
+          <span class="p-key">Detected At: </span>
+          <span class="p-value">{{moment-format hit.detectedAt "YYYY-MM-DD HH:mm:ss z" timeZone=timezone}}</span>
+      </div>
+      {{/if}}
+      {{#if hit.source}}
+      <div>
+          <span class="p-key">Source: </span>
+          <span class="p-value">{{hit.source}}</span>
+      </div>
+      {{/if}}
+    </div>
 {{/each}}
+
 {{#if details.ip.reputationMatches}}
   <h1 class="p-title">
-      {{fa-icon "bug" fixedWidth=true}} Reputation Matches
+      {{fa-icon "certificate" fixedWidth=true}} Reputation Matches
   </h1>
 {{/if}}
 {{#each details.ip.reputationMatches as |hit|}}
-  {{#if hit.listName}}
-  <div>
-      <span class="p-key">List Name: </span>
-      <span class="p-value">{{hit.listName}}</span>
-  </div>
-  {{/if}}
-  {{#if hit.threatType}}
-  <div>
-      <span class="p-key">Threat Type: </span>
-      <span class="p-value">{{hit.threatType}}</span>
-  </div>
-  {{/if}}
-  {{#if hit.trusted}}
-  <div>
-      <span class="p-key">Trusted: </span>
-      <span class="p-value">{{hit.trusted}}</span>
-  </div>
-  {{/if}}
-  {{#if hit.firstSeen}}
-  <div>
-      <span class="p-key">First Seen: </span>
-      <span class="p-value">{{hit.firstSeen}}</span>
-  </div>
-  {{/if}}
-  {{#if hit.lastSeen}}
-  <div>
-      <span class="p-key">Last Seen: </span>
-      <span class="p-value">{{hit.lastSeen}}</span>
-  </div>
-  {{/if}}
+    <div class="mb-2">
+        {{#if hit.listName}}
+            <div>
+                <span class="p-key">List Name: </span>
+                <span class="p-value">{{hit.listName}}</span>
+            </div>
+        {{/if}}
+        {{#if hit.threatType}}
+            <div>
+                <span class="p-key">Threat Type: </span>
+                <span class="p-value">{{hit.threatType}}</span>
+            </div>
+        {{/if}}
+        {{#if hit.trusted}}
+            <div>
+                <span class="p-key">Trusted: </span>
+                <span class="p-value">{{hit.trusted}}</span>
+            </div>
+        {{/if}}
+        {{#if hit.firstSeen}}
+            <div>
+                <span class="p-key">First Seen: </span>
+                <span class="p-value">{{moment-format hit.firstSeen "YYYY-MM-DD HH:mm:ss z" timeZone=timezone}}</span>
+            </div>
+        {{/if}}
+        {{#if hit.lastSeen}}
+            <div>
+                <span class="p-key">Last Seen: </span>
+                <span class="p-value">{{moment-format hit.lastSeen "YYYY-MM-DD HH:mm:ss z" timeZone=timezone}}</span>
+            </div>
+        {{/if}}
+    </div>
 {{/each}}
 {{#if details.ip.openPorts}}
   <h1 class="p-title">
@@ -332,30 +342,32 @@
   </h1>
 {{/if}}
 {{#each details.ip.openPorts as |hit|}}
-  {{#if hit.count}}
-  <div>
-      <span class="p-key">Count: </span>
-      <span class="p-value">{{hit.count}}</span>
-  </div>
-  {{/if}}
-  {{#if hit.firstSeen}}
-  <div>
-      <span class="p-key">First Seen: </span>
-      <span class="p-value">{{hit.firstSeen}}</span>
-  </div>
-  {{/if}}
-  {{#if hit.lastSeen}}
-  <div>
-      <span class="p-key">Last Seen: </span>
-      <span class="p-value">{{hit.lastSeen}}</span>
-  </div>
-  {{/if}}
-  {{#if hit.portNumber}}
-  <div>
-      <span class="p-key">Port Number: </span>
-      <span class="p-value">{{hit.portNumber}}</span>
-  </div>
-  {{/if}}
+    <div class="mb-2">
+        {{#if hit.count}}
+            <div>
+                <span class="p-key">Count: </span>
+                <span class="p-value">{{hit.count}}</span>
+            </div>
+        {{/if}}
+        {{#if hit.firstSeen}}
+            <div>
+                <span class="p-key">First Seen: </span>
+                <span class="p-value">{{moment-format hit.firstSeen "YYYY-MM-DD HH:mm:ss z" timeZone=timezone}}</span>
+            </div>
+        {{/if}}
+        {{#if hit.lastSeen}}
+            <div>
+                <span class="p-key">Last Seen: </span>
+                <span class="p-value">{{moment-format hit.lastSeen "YYYY-MM-DD HH:mm:ss z" timeZone=timezone}}</span>
+            </div>
+        {{/if}}
+        {{#if hit.portNumber}}
+            <div>
+                <span class="p-key">Port Number: </span>
+                <span class="p-value">{{hit.portNumber}}</span>
+            </div>
+        {{/if}}
+    </div>
 {{/each}}
 {{/if}}
 </div>
