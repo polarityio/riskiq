@@ -152,14 +152,12 @@ function doLookup(entities, options, cb) {
               entity: entity,
               body: null
             };
-          }
-
-          if (body.error) {
-            // entity not found
-            result = {
-              entity: entity,
-              body: null
-            };
+          } else {
+            // unexpected status code
+            return done({
+              err: body,
+              detail: `${body.error}: ${body.message}`
+            });
           }
 
           done(null, result);
