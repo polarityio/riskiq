@@ -115,8 +115,8 @@ module.exports = {
       adminOnly: false
     },
     {
-      key: 'blacklist',
-      name: 'Blacklist Domains and IPs',
+      key: 'blocklist',
+      name: 'Ignore List',
       description: 'List of domains and IPs that you never want to send to RiskIQ',
       default: '',
       type: 'text',
@@ -124,19 +124,19 @@ module.exports = {
       adminOnly: false
     },
     {
-      key: 'domainBlacklistRegex',
-      name: 'Domain Black List Regex',
+      key: 'domainBlocklistRegex',
+      name: 'Ignore Domain Regex',
       description:
-        'Domains that match the given regex will not be looked up (if blank, no domains will be black listed)',
+        'Domains that match the given regex will not be looked up.',
       default: '',
       type: 'text',
       userCanEdit: false,
       adminOnly: false
     },
     {
-      key: 'ipBlacklistRegex',
-      name: 'IP Black List Regex',
-      description: 'IPs that match the given regex will not be looked up (if blank, no IPs will be black listed)',
+      key: 'ipBlocklistRegex',
+      name: 'Ignore IP Regex',
+      description: 'IPs that match the given regex will not be looked up.',
       default: '',
       type: 'text',
       userCanEdit: false,
