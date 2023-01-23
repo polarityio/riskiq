@@ -25,6 +25,7 @@ module.exports = {
   description:
     'RiskIQ provides comprehensive discovery, intelligence, and mitigation of threats associated with an organization’s digital presence.',
   entityTypes: ['IPv4', 'url', 'domain'],
+  defaultColor: 'light-gray',
   /**
    * An array of style files (css or less) that will be included for your integration. Any styles specified in
    * the below files can be used in your custom template.
@@ -126,8 +127,7 @@ module.exports = {
     {
       key: 'domainBlocklistRegex',
       name: 'Ignore Domain Regex',
-      description:
-        'Domains that match the given regex will not be looked up.',
+      description: 'Domains that match the given regex will not be looked up.',
       default: '',
       type: 'text',
       userCanEdit: false,

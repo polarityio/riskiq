@@ -4,8 +4,8 @@
   "main": "./integration.js",
   "private": true,
   "dependencies": {
-    "request": "^2.88.2",
+    "async": "^3.2",
     "lodash": "^4.17.19",
-    "async": "^3.2"
+    "postman-request": "^2.88.1-postman.31"
   }
 }
