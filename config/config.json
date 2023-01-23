@@ -1,0 +1,97 @@
+{
+  "name": "RiskIQ SIS",
+  "acronym": "RIQ",
+  "description": "RiskIQ provides comprehensive discovery, intelligence, and mitigation of threats associated with an organizationb\u0000\u0019s digital presence.",
+  "entityTypes": [
+    "IPv4",
+    "url",
+    "domain"
+  ],
+  "defaultColor": "light-gray",
+  "styles": [
+    "./styles/riskiq.less"
+  ],
+  "block": {
+    "component": {
+      "file": "./components/riq-block.js"
+    },
+    "template": {
+      "file": "./templates/riq-block.hbs"
+    }
+  },
+  "summary": {
+    "component": {
+      "file": "./components/riq-summary.js"
+    },
+    "template": {
+      "file": "./templates/riq-summary.hbs"
+    }
+  },
+  "request": {
+    "cert": "",
+    "key": "",
+    "passphrase": "",
+    "ca": "",
+    "proxy": "",
+    "rejectUnauthorized": true
+  },
+  "logging": {
+    "level": "info"
+  },
+  "options": [
+    {
+      "key": "host",
+      "name": "RiskIQ SIS API URL",
+      "description": "The host to use for the RiskIQ SIS API",
+      "default": "https://api.riskiq.net",
+      "type": "text",
+      "userCanEdit": false,
+      "adminOnly": true
+    },
+    {
+      "key": "apiKey",
+      "name": "API Key",
+      "description": "RiskIQ Security Intelligence Services API Key",
+      "default": "",
+      "type": "text",
+      "userCanEdit": true,
+      "adminOnly": false
+    },
+    {
+      "key": "privateKey",
+      "name": "Private Key",
+      "description": "RiskIQ Security Intelligence Services Private Key",
+      "default": "",
+      "type": "password",
+      "userCanEdit": true,
+      "adminOnly": false
+    },
+    {
+      "key": "blocklist",
+      "name": "Ignore List",
+      "description": "List of domains and IPs that you never want to send to RiskIQ",
+      "default": "",
+      "type": "text",
+      "userCanEdit": false,
+      "adminOnly": false
+    },
+    {
+      "key": "domainBlocklistRegex",
+      "name": "Ignore Domain Regex",
+      "description": "Domains that match the given regex will not be looked up.",
+      "default": "",
+      "type": "text",
+      "userCanEdit": false,
+      "adminOnly": false
+    },
+    {
+      "key": "ipBlocklistRegex",
+      "name": "Ignore IP Regex",
+      "description": "IPs that match the given regex will not be looked up.",
+      "default": "",
+      "type": "text",
+      "userCanEdit": false,
+      "adminOnly": false
+    }
+  ]
+}
